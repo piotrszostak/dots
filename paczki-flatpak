@@ -1,0 +1,10 @@
+Discord	com.discordapp.Discord	0.0.28	stable	system
+Minder	com.github.phase1geo.minder	1.15.6	stable	system
+Logseq	com.logseq.Logseq	0.9.18	stable	system
+Spotify	com.spotify.Client	1.2.11.916.geb595a67	stable	system
+AppFlowy	io.appflowy.AppFlowy	0.3.2	stable	system
+Freedesktop Platform	org.freedesktop.Platform	22.08.15	22.08	system
+Mesa	org.freedesktop.Platform.GL.default	23.1.6	22.08	system
+Mesa (Extra)	org.freedesktop.Platform.GL.default	23.1.6	22.08-extra	system
+openh264	org.freedesktop.Platform.openh264	2.1.0	2.2.0	system
+Adwaita dark GTK theme	org.gtk.Gtk3theme.Adwaita-dark		3.22	system
