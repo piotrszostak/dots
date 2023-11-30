@@ -1,0 +1,172 @@
+# config for i3wm; endevourOS 2023-11-27
+
+#bar
+bar
+{
+                font pango: JetBrains Mono 12
+                status_command i3blocks -c ~/.config/i3/i3blocks.conf
+                position top
+}
+
+set $mod Mod4
+
+font pango:Cascadia Code 14
+font pango:FiraCode 14
+font pango:JetBrains Mono 14
+
+
+# restart i3 
+bindsym $mod+Shift+r restart
+# exit i3 not xfce-session
+#i3-msg exit
+bindsym $mod+Shift+q exec poweroff
+bindsym $mod+Ctrl+q exec --no-startup-id ~/.config/i3/scripts/blur-lock
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# border decorations
+default_border pixel 2
+default_floating_border normal
+#smart_borders no_gaps
+gaps inner 1
+gaps outer 1
+gaps bottom 1
+
+# border colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #FF5F00 #1e222a #f9fafa #1c1b22   #FF5F00 
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+# autostart
+exec --no-startup-id setxkbmap -option "ctrl:nocaps"
+exec_always --no-startup-id autotiling
+exec_always --no-startup-id picom --config  ~/.config/picom.conf
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id feh --no-fehbg --bg-scale '/home/ps/Pictures/tlo/gory.jpg'
+exec --no-startup-id xset r rate 330 33
+exec --no-startup-id xinput --set-prop 12 308 0.8
+
+#exec_always --no-startup-id dunst
+#exec --no-startup-id ulauncher
+# panel
+#exec_always --no-startup-id xfce4-panel
+#exec_always --no-startup-id caffeine
+exec_always --no-startup-id blueman-applet
+exec --no-startup-id xfce4-clipman
+exec --no-startup-id nm-applet
+# moje bash-scripts
+#exec_always --no-startup-id /home/ps/Documents/bash-scripts/mouse-sens.sh
+#exec_always --no-startup-id /home/ps/Documents/bash-scripts/nocaps.sh
+#exec_always --no-startup-id /home/ps/Documents/bash-scripts/tapeta.sh
+
+# kill foucsed window
+bindsym $mod+w kill 
+# kill window with mouse
+#bindsym $mod+Shift+x exec xkill
+#nie dziala-^
+
+# binds
+bindsym $mod+Return exec /usr/bin/kitty
+#bindsym $mod+space exec "rofi -show combi --show-icons"
+bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
+		-config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+b exec firefox
+bindsym $mod+Shift+s exec flameshot gui
+
+# change focus (updated)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# switch/iterate between workspaces
+bindsym $mod+Tab workspace next
+
+# change container (not workspace!) layout (stacked, tabbed, toggle split)
+bindsym $mod+t layout tabbed
+bindsym $mod+g layout splitv
+bindsym $mod+v layout splith
+bindsym $mod+f fullscreen toggle
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Use pactl to adjust volume in PulseAudio.
+#set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +7% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -7% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# use brightnessctl to adjust screen brightness
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%- 
+
+##################
+# floating rules #
+##################
+
+# set floating (nontiling) for apps needing it
+for_window [class="Yad" instance="yad"] floating enable
+for_window [class="Galculator" instance="galculator"] floating enable
+for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+
+# set floating (nontiling) for special apps
+for_window [class="Xsane" instance="xsane"] floating enable
+#for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+for_window [class="qt5ct" instance="qt5ct"] floating enable
+for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [window_role="About"] floating enable
