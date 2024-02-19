@@ -1,12 +1,7 @@
 # config for i3wm; endevourOS 2023-11-27
 
-#bar
-bar
-{
-                font pango: JetBrains Mono 12
-                status_command i3blocks -c ~/.config/i3/i3blocks.conf
-                position top
-}
+## reserved shortcuts
+## meta+m for mic mute @Discord
 
 set $mod Mod4
 
@@ -17,10 +12,12 @@ font pango:JetBrains Mono 14
 
 # restart i3 
 bindsym $mod+Shift+r restart
-# exit i3 not xfce-session
-#i3-msg exit
-bindsym $mod+Shift+q exec poweroff
-bindsym $mod+Ctrl+q exec --no-startup-id ~/.config/i3/scripts/blur-lock
+# exit/lock options
+bindsym $mod+q exec --no-startup-id ~/.config/i3/scripts/blur-lock
+bindsym $mod+Ctrl+q exec poweroff
+bindsym $mod+Shift+q exec i3-msg exit
+# alternative:
+# ~/.config/i3/scripts/powermenu
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -35,7 +32,7 @@ gaps bottom 1
 
 # border colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #FF5F00 #1e222a #f9fafa #1c1b22   #FF5F00 
+client.focused          #7f7fff #1e222a #f9fafa #1c1b22   #7f7fff
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
@@ -44,47 +41,58 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # autostart
-exec --no-startup-id setxkbmap -option "ctrl:nocaps"
-exec_always --no-startup-id autotiling
-exec_always --no-startup-id picom --config  ~/.config/picom.conf
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xrfb ~/.Xresources
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id feh --no-fehbg --bg-scale '/home/ps/Pictures/tlo/gory.jpg'
+exec_always --no-startup-id picom --config  ~/.config/picom.conf
+exec --no-startup-id syncthing
+exec_always --no-startup-id autotiling
+# keyboard and mouse
+exec --no-startup-id setxkbmap -option "ctrl:nocaps"
 exec --no-startup-id xset r rate 330 33
 exec --no-startup-id xinput --set-prop 12 308 0.8
 
-#exec_always --no-startup-id dunst
-#exec --no-startup-id ulauncher
-# panel
-#exec_always --no-startup-id xfce4-panel
+
+#bar
+bar
+{
+      font pango: JetBrains Mono 12
+      status_command i3blocks -c ~/.config/i3/i3blocks.conf
+      position top
+}
+
+#bar plugins/applets
 #exec_always --no-startup-id caffeine
 exec_always --no-startup-id blueman-applet
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id nm-applet
-# moje bash-scripts
-#exec_always --no-startup-id /home/ps/Documents/bash-scripts/mouse-sens.sh
-#exec_always --no-startup-id /home/ps/Documents/bash-scripts/nocaps.sh
-#exec_always --no-startup-id /home/ps/Documents/bash-scripts/tapeta.sh
 
 # kill foucsed window
 bindsym $mod+w kill 
-# kill window with mouse
-#bindsym $mod+Shift+x exec xkill
-#nie dziala-^
+bindsym $mod+x exec xkill
 
 # binds
-bindsym $mod+Return exec /usr/bin/kitty
-#bindsym $mod+space exec "rofi -show combi --show-icons"
+bindsym $mod+Return exec /usr/bin/xfce4-terminal
 bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
-bindsym $mod+b exec firefox
+bindsym $mod+b exec blueman-manager
+bindsym $mod+e exec Thunar
+bindsym $mod+d exec firefox
+bindsym $mod+a exec pavucontrol
 bindsym $mod+Shift+s exec flameshot gui
+ 
+# bind program to workspace and focus to them on startup:
+#assign [class="Xfce4-terminal"] workspace number 1
 
 # change focus (updated)
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+
+# focus the parent container
+bindsym $mod+s focus parent
 
 # switch/iterate between workspaces
 bindsym $mod+Tab workspace next
@@ -152,6 +160,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # use brightnessctl to adjust screen brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%- 
+
+bindsym XF86Calculator exec --no-startup-id galculator
 
 ##################
 # floating rules #
