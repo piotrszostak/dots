@@ -16,10 +16,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+q exec --no-startup-id ~/.config/i3/scripts/blur-lock
 bindsym $mod+Ctrl+q exec poweroff
 bindsym $mod+Shift+q exec i3-msg exit
-# alternative:
-# ~/.config/i3/scripts/powermenu
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# Use Mouse+$mod to drag windows 
 floating_modifier $mod
 
 # border decorations
@@ -45,9 +43,9 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xrfb ~/.Xresources
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id feh --no-fehbg --bg-scale '/home/ps/Pictures/tlo/gory.jpg'
-exec_always --no-startup-id picom --config  ~/.config/picom.conf
 exec --no-startup-id syncthing
 exec_always --no-startup-id autotiling
+exec_always --no-startup-id picom --config  ~/.config/picom.conf
 # keyboard and mouse
 exec --no-startup-id setxkbmap -option "ctrl:nocaps"
 exec --no-startup-id xset r rate 330 33
@@ -62,7 +60,7 @@ bar
       position top
 }
 
-#bar plugins/applets
+# system tray/bar plugins & applets
 #exec_always --no-startup-id caffeine
 exec_always --no-startup-id blueman-applet
 exec --no-startup-id xfce4-clipman
@@ -76,10 +74,10 @@ bindsym $mod+x exec xkill
 bindsym $mod+Return exec /usr/bin/xfce4-terminal
 bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
-bindsym $mod+b exec blueman-manager
+bindsym $mod+b exec firefox
+bindsym $mod+Shift+b exec blueman-manager
 bindsym $mod+e exec Thunar
-bindsym $mod+d exec firefox
-bindsym $mod+a exec pavucontrol
+bindsym $mod+n exec pavucontrol
 bindsym $mod+Shift+s exec flameshot gui
  
 # bind program to workspace and focus to them on startup:
