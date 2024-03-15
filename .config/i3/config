@@ -9,14 +9,6 @@ font pango:Cascadia Code 14
 font pango:FiraCode 14
 font pango:JetBrains Mono 14
 
-
-# restart i3 
-bindsym $mod+Shift+r restart
-# exit/lock options
-bindsym $mod+q exec --no-startup-id ~/.config/i3/scripts/blur-lock
-bindsym $mod+Ctrl+q exec poweroff
-bindsym $mod+Shift+q exec i3-msg exit
-
 # Use Mouse+$mod to drag windows 
 floating_modifier $mod
 
@@ -66,11 +58,19 @@ exec_always --no-startup-id blueman-applet
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id nm-applet
 
+## key bindings ##
+# restart i3 
+bindsym $mod+Shift+r restart
+# exit/lock options
+#bindsym $mod+q exec --no-startup-id ~/.config/i3/scripts/blur-lock
+bindsym $mod+Ctrl+q exec poweroff
+bindsym $mod+Shift+q exec i3-msg exit
+
 # kill foucsed window
 bindsym $mod+w kill 
 bindsym $mod+x exec xkill
 
-# binds
+# launchers
 bindsym $mod+Return exec /usr/bin/xfce4-terminal
 bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
