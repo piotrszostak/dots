@@ -34,7 +34,7 @@ client.background       #ffffff
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xrfb ~/.Xresources
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id feh --no-fehbg --bg-scale '/home/ps/Pictures/tlo/gory.jpg'
+exec --no-startup-id feh --no-fehbg --bg-scale --randomize '/home/ps/Pictures/tlo'
 exec --no-startup-id syncthing
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id picom --config  ~/.config/picom.conf
@@ -68,26 +68,28 @@ bindsym $mod+Shift+q exec i3-msg exit
 
 # kill foucsed window
 bindsym $mod+w kill 
-bindsym $mod+x exec xkill
+bindsym --release $mod+Shift+x exec xkill
 
 # launchers
 bindsym $mod+Return exec /usr/bin/xfce4-terminal
 bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+d exec --no-startup-id rofi -show combi \
+		-config ~/.config/rofi/rofidmenu.rasi
 bindsym $mod+b exec firefox
 bindsym $mod+Shift+b exec blueman-manager
 bindsym $mod+e exec Thunar
-bindsym $mod+n exec pavucontrol
+bindsym $mod+a exec pavucontrol
 bindsym $mod+Shift+s exec flameshot gui
- 
-# bind program to workspace and focus to them on startup:
-#assign [class="Xfce4-terminal"] workspace number 1
 
-# change focus (updated)
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# change container (not workspace!) layout (stacked, tabbed, toggle split)
+bindsym $mod+t layout tabbed
+bindsym $mod+g layout splitv
+bindsym $mod+v layout splith
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
 
 # focus the parent container
 bindsym $mod+s focus parent
@@ -95,19 +97,20 @@ bindsym $mod+s focus parent
 # switch/iterate between workspaces
 bindsym $mod+Tab workspace next
 
-# change container (not workspace!) layout (stacked, tabbed, toggle split)
-bindsym $mod+t layout tabbed
-bindsym $mod+g layout splitv
-bindsym $mod+v layout splith
-bindsym $mod+f fullscreen toggle
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+# change focus 
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+
+# bind program to workspace and focus to them on startup:
+#assign [class="Xfce4-terminal"] workspace number 1
 
 # switch to workspace
 bindsym $mod+1 workspace number 1
