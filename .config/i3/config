@@ -41,7 +41,7 @@ exec_always --no-startup-id picom --config  ~/.config/picom.conf
 # keyboard and mouse
 exec --no-startup-id setxkbmap -option "ctrl:nocaps"
 exec --no-startup-id xset r rate 330 33
-exec --no-startup-id xinput --set-prop 12 308 0.8
+exec --no-startup-id xinput --set-prop 12 307 0.8
 
 
 #bar
