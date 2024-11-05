@@ -1,72 +1,42 @@
 # config for i3wm; endevourOS 
-## reserved shortcuts
-## meta+m for mic mute @Discord
 
 # meta key is modifier
 set $mod Mod4
-# Use Mouse+$mod to drag windows 
+# Use Mouse+$mod to drag windows
 floating_modifier $mod
 
-### main key bindings
-# restart i3 
-bindsym $mod+Shift+r restart
-
-# keyboard and mouse
-exec --no-startup-id setxkbmap -option "ctrl:nocaps"
-exec --no-startup-id xset r rate 330 33
-exec --no-startup-id xinput --set-prop 12 309 0.7
-
-# exit/lock options
-bindsym $mod+Ctrl+q exec poweroff
-bindsym $mod+Shift+q exec i3-msg exit
-bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/blur-lock
-
-# kill window
-bindsym $mod+w kill 
-bindsym --release $mod+Shift+x exec xkill
-
-# launchers
-bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
-		-config ~/.config/rofi/rofidmenu.rasi
-bindsym $mod+d exec --no-startup-id rofi -show combi \
-		-config ~/.config/rofi/rofidmenu.rasi
-
-bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+x exec firefox
-bindsym $mod+c exec brave
-bindsym $mod+b exec blueman-manager
-bindsym $mod+e exec Thunar
-bindsym $mod+a exec pavucontrol
-bindsym $mod+Shift+s exec flameshot gui
+# import bindings
+include ~/.config/i3/binds.conf
 
 # autostart
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xrfb ~/.Xresources
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id feh --no-fehbg --bg-scale --randomize '/home/ps/Pictures/tlo'
-exec --no-startup-id syncthing
+# keyboard and mouse
+exec --no-startup-id setxkbmap -option "ctrl:nocaps"
+exec --no-startup-id xset r rate 330 33
+exec --no-startup-id xinput --set-prop 12 309 0.7
+# apperance and bar
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id picom --config  ~/.config/picom.conf
-
+exec_always --no-startup-id blueman-applet
+#exec_always --no-startup-id caffeine
+exec --no-startup-id feh --no-fehbg --bg-scale --randomize '/home/ps/Pictures/tlo'
+exec --no-startup-id xfce4-clipman
+exec --no-startup-id nm-applet
+# other background apps
+exec --no-startup-id syncthing
 exec --no-startup-id virsh net-start default
 
-### system tray/bar plugins & applets
-#bar
-bar
-{
+# bar
+bar {
     font pango: 0xProto Nerd Font 12
     font pango: JetBrains Mono 12
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     position top
 }
 
-#exec_always --no-startup-id caffeine
-exec_always --no-startup-id blueman-applet
-exec --no-startup-id xfce4-clipman
-exec --no-startup-id nm-applet
-
-
-#apperance
+# apperance
 font pango:Cascadia Code 14
 font pango:FiraCode 14
 font pango:JetBrains Mono 14
@@ -75,7 +45,7 @@ font pango:0xProto Nerd Font 14
 # border decorations
 default_border pixel 2
 default_floating_border normal
-#smart_borders no_gaps
+hide_edge_borders smart_no_gaps
 gaps inner 1
 gaps outer 1
 gaps bottom 1
@@ -90,77 +60,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-### Tiling shortcuts
-# change container (not workspace!) layout (stacked, tabbed, toggle split)
-bindsym $mod+t layout tabbed
-bindsym $mod+g layout splitv
-bindsym $mod+v layout splith
-bindsym $mod+f fullscreen toggle
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# focus the parent container
-bindsym $mod+s focus parent
-
-# switch/iterate between workspaces
-bindsym $mod+Tab workspace next
-
-# change focus 
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# bind program to workspace and focus to them on startup:
-#assign [class="Xfce4-terminal"] workspace number 1
-
-# switch to workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-### floating rules
+# floating rules
 # set floating (nontiling) for apps needing it
 for_window [class="Yad" instance="yad"] floating enable
 for_window [class="Galculator" instance="galculator"] floating enable
@@ -168,24 +68,10 @@ for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
 
 # set floating (nontiling) for special apps
 for_window [class="Xsane" instance="xsane"] floating enable
-#for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 for_window [class="qt5ct" instance="qt5ct"] floating enable
+#for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
 for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [window_role="About"] floating enable
-
-### Top row (functional keys)
-# Use pactl to adjust volume in PulseAudio.
-#set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +7% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -7% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# use brightnessctl to adjust screen brightness
-bindsym XF86MonBrightnessUp exec brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec brightnessctl set 10%- 
-
-bindsym XF86Calculator exec --no-startup-id galculator
 

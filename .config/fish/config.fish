@@ -37,8 +37,8 @@ alias ...="cd ../.."
 
 alias h='history'
 alias v='nvim'
-alias syc='systemctl'
-alias syd='systemd'
+alias syc='sudo systemctl'
+alias syd='sudo systemd'
 alias vpn='nmcli connection up'
 
 alias timer='termdown'
